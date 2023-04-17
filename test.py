@@ -9,6 +9,11 @@ from oneforall import OneForAll
 
 
 def oneforall(domain):
+    """
+    sdsd
+    :param domain:
+    :return:
+    """
     test = OneForAll(target=domain)
     test.dns = True
     test.brute = True
