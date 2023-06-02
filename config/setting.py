@@ -24,7 +24,7 @@ enable_takeover_check = False  # 开启子域接管风险检查(默认False)
 http_request_port = 'small'  # 请求端口范围(默认 'small'，表示请求子域的80,443端口)
 # 参数可选值True，False分别表示导出存活，全部子域结果
 result_export_alive = False  # 只导出存活的子域结果(默认False)
-result_save_format = 'csv'  # 子域结果保存文件格式(默认csv)
+result_save_format = 'json'  # 子域结果保存文件格式(默认csv)
 # 参数path默认None使用OneForAll结果目录自动生成路径
 result_save_path = None  # 子域结果保存文件路径(默认None)
 

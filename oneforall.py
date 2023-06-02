@@ -229,7 +229,7 @@ class OneForAll(object):
         :return: All subdomain results
         :rtype: list
         """
-        print(oneforall_banner)
+        #print(oneforall_banner)
         dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         print(f'[*] Starting OneForAll @ {dt}\n')
         logger.log('DEBUG', 'Python ' + utils.python_version())
