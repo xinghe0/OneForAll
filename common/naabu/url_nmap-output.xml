@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/local/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.93 scan initiated Fri Jun  2 17:52:59 2023 as: nmap -sV -oX url_nmap-output.xml -p 80,443,22,111,9100,8000 10.1.61.242 -->
-<nmaprun scanner="nmap" args="nmap -sV -oX url_nmap-output.xml -p 80,443,22,111,9100,8000 10.1.61.242" start="1685699579" startstr="Fri Jun  2 17:52:59 2023" version="7.93" xmloutputversion="1.05">
+<!-- Nmap 7.93 scan initiated Fri Jun  2 18:20:05 2023 as: nmap -sV -oX url_nmap-output.xml -p 9100,111,8000,443,22,80 10.1.61.242 -->
+<nmaprun scanner="nmap" args="nmap -sV -oX url_nmap-output.xml -p 9100,111,8000,443,22,80 10.1.61.242" start="1685701205" startstr="Fri Jun  2 18:20:05 2023" version="7.93" xmloutputversion="1.05">
 <scaninfo type="connect" protocol="tcp" numservices="6" services="22,80,111,443,8000,9100"/>
 <verbose level="0"/>
 <debugging level="0"/>
@@ -11,7 +11,7 @@
 <hostnames>
 </hostnames>
 </hosthint>
-<host starttime="1685699585" endtime="1685699597"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<host starttime="1685701210" endtime="1685701223"><status state="up" reason="syn-ack" reason_ttl="0"/>
 <address addr="10.1.61.242" addrtype="ipv4"/>
 <hostnames>
 </hostnames>
@@ -22,8 +22,8 @@
 <port protocol="tcp" portid="8000"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" product="Tengine httpd" method="probed" conf="10"><cpe>cpe:/a:alibaba:tengine</cpe></service></port>
 <port protocol="tcp" portid="9100"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="jetdirect" method="table" conf="3"/></port>
 </ports>
-<times srtt="2881" rttvar="1230" to="100000"/>
+<times srtt="4016" rttvar="1590" to="100000"/>
 </host>
-<runstats><finished time="1685699597" timestr="Fri Jun  2 17:53:17 2023" summary="Nmap done at Fri Jun  2 17:53:17 2023; 1 IP address (1 host up) scanned in 18.10 seconds" elapsed="18.10" exit="success"/><hosts up="1" down="0" total="1"/>
+<runstats><finished time="1685701223" timestr="Fri Jun  2 18:20:23 2023" summary="Nmap done at Fri Jun  2 18:20:23 2023; 1 IP address (1 host up) scanned in 18.18 seconds" elapsed="18.18" exit="success"/><hosts up="1" down="0" total="1"/>
 </runstats>
 </nmaprun>

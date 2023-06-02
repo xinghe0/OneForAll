@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/local/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.93 scan initiated Fri Jun  2 18:24:24 2023 as: nmap -sV -oX /Users/xinghe/Desktop/VulKill/Subdomain/OneForAll/results/all_subdomain_result_20230602_182404_nmap-output.xml -p 443,80 119.188.91.242 125.39.216.183 -->
+<nmaprun scanner="nmap" args="nmap -sV -oX /Users/xinghe/Desktop/VulKill/Subdomain/OneForAll/results/all_subdomain_result_20230602_182404_nmap-output.xml -p 443,80 119.188.91.242 125.39.216.183" start="1685701464" startstr="Fri Jun  2 18:24:24 2023" version="7.93" xmloutputversion="1.05">
+<scaninfo type="connect" protocol="tcp" numservices="2" services="80,443"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="unknown-response" reason_ttl="0"/>
+<address addr="125.39.216.183" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<hosthint><status state="up" reason="unknown-response" reason_ttl="0"/>
+<address addr="119.188.91.242" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1685701470" endtime="1685701483"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="119.188.91.242" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" product="Tengine httpd" method="probed" conf="10"><cpe>cpe:/a:alibaba:tengine</cpe></service></port>
+<port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" product="Tengine httpd" tunnel="ssl" method="probed" conf="10"><cpe>cpe:/a:alibaba:tengine</cpe></service></port>
+</ports>
+<times srtt="29870" rttvar="18331" to="103194"/>
+</host>
+<host starttime="1685701470" endtime="1685701483"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="125.39.216.183" addrtype="ipv4"/>
+<hostnames>
+<hostname name="no-data" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" product="Tengine httpd" method="probed" conf="10"><cpe>cpe:/a:alibaba:tengine</cpe></service></port>
+<port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" product="Tengine httpd" tunnel="ssl" method="probed" conf="10"><cpe>cpe:/a:alibaba:tengine</cpe></service></port>
+</ports>
+<times srtt="29059" rttvar="18978" to="104971"/>
+</host>
+<runstats><finished time="1685701483" timestr="Fri Jun  2 18:24:43 2023" summary="Nmap done at Fri Jun  2 18:24:43 2023; 2 IP addresses (2 hosts up) scanned in 18.99 seconds" elapsed="18.99" exit="success"/><hosts up="2" down="0" total="2"/>
+</runstats>
+</nmaprun>
