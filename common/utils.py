@@ -2,7 +2,6 @@ import os
 import re
 import sys
 import time
-import json
 import socket
 import random
 import string
@@ -13,6 +12,8 @@ from ipaddress import IPv4Address, ip_address
 from distutils.version import LooseVersion
 from pathlib import Path
 from stat import S_IXUSR
+import json
+import ipaddress
 
 import requests
 import tenacity
@@ -36,7 +37,8 @@ user_agents = [
     'Gecko/20100101 Firefox/68.0',
     'Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/68.0']
 
-IP_RE = re.compile(r'^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')  # pylint: disable=line-too-long
+IP_RE = re.compile(
+    r'^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')  # pylint: disable=line-too-long
 SCHEME_RE = re.compile(r'^([' + scheme_chars + ']+:)?//')
 
 
@@ -333,6 +335,11 @@ def export_all_results(path, name, fmt, datas):
     if fmt == 'csv':
         content = '\ufeff' + content
     save_to_file(path, content)
+    results =  open(path,'r')
+    results = results.read()
+    ip_list = nginx_ip(results)
+    host_list = intranet_host(results)
+    print(ip_list,host_list)
 
 
 def export_all_subdomains(alive, path, name, datas):
@@ -787,3 +794,64 @@ def init_table(domain):
     db.drop_table(domain)
     db.create_table(domain)
     db.close()
+
+
+def fmt(results):
+    """
+    对json进行格式化处理
+    :param results:
+    :return:
+    """
+    results = str(results).replace('"', '').replace('\\', '').replace('n', '').replace('\'', '"').replace('""', '"')
+    return results
+
+def nginx_ip(data):
+    """
+    获取nginx反代的ip
+    :param data:
+    :return:
+    """
+    result = []
+    json_obj = json.loads(data)
+    for obj in json_obj:
+        if obj['banner'] == 'nginx':
+            result.append(obj['ip'])
+    result = set(result)
+    new_list = list(result)
+    new_lists = []
+    for item in new_list:
+        new_lists.extend(item.split(','))
+    return new_lists
+
+
+def intranet_host(data):
+    """
+    获取内网子域名
+    :param data:
+    :return:
+    """
+    result = []
+    json_obj = json.loads(data)
+    for obj in json_obj:
+        if ',' in str(obj['ip']):
+            for i in str(obj['ip']).split(','):
+                if is_private_ip(i) and i != '127.0.0.1':
+                    result.append(obj['subdomain'])
+        else:
+            if is_private_ip(obj['ip']) and obj['ip'] != '127.0.0.1':
+                result.append(obj['subdomain'])
+    result = list(set(result))
+    return result
+
+def is_private_ip(ip):
+    """
+    判断是否为内网IP地址
+    :param ip: IP地址字符串，如'192.168.1.1'
+    :return: True或False
+    """
+    try:
+        addr = ipaddress.ip_address(ip)
+        return addr.is_private
+    except ValueError:
+        return False
+

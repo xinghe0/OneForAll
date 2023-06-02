@@ -6,24 +6,20 @@ Example
 """
 
 from oneforall import OneForAll
-
+from common.utils import fmt,nginx_ip,intranet_host
 
 def oneforall(file):
     """
-    sdsd
+    oneforall子域名接口扫描api
     :param domain:
     :return:
     """
     test = OneForAll(targets=file)
     test.dns = True
-    test.brute = False
+    test.brute = True
     test.req = True
     test.takeover = False
     test.run()
-    results = test.datas
-
-    print(f'{type(results)}')
-
 
 if __name__ == '__main__':
     oneforall('url.txt')
