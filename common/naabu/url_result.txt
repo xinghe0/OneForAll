@@ -1,6 +1,6 @@
-live.dz11.com:22
+live.dz11.com:8000
 live.dz11.com:80
+live.dz11.com:443
+live.dz11.com:22
 live.dz11.com:111
 live.dz11.com:9100
-live.dz11.com:8000
-live.dz11.com:443

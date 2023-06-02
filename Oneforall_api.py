@@ -6,7 +6,7 @@ Example
 """
 
 from oneforall import OneForAll
-from common.utils import fmt,nginx_ip,intranet_host
+from common.naabu.naabu import naabu_cmd
 
 def oneforall(file):
     """
@@ -16,7 +16,7 @@ def oneforall(file):
     """
     test = OneForAll(targets=file)
     test.dns = True
-    test.brute = True
+    test.brute = False
     test.req = True
     test.takeover = False
     test.run()

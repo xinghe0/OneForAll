@@ -24,8 +24,8 @@ from common.domain import Domain
 from common.records import Record, RecordCollection
 from config import settings
 from config.log import logger
-
-from Subdomain.OneForAll.common.hostscan import hostboom
+from common.hostscan import hostboom
+from common.naabu.naabu import naabu_cmd
 
 user_agents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
@@ -361,6 +361,7 @@ def export_all_subdomains(alive, path, name, datas):
             subdomains.add(subdomain)
     data = '\n'.join(subdomains)
     save_to_file(path, data)
+    naabu_cmd(str(path))
 
 
 def export_all(alive, fmt, path, datas):
