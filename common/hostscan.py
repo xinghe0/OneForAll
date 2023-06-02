@@ -6,8 +6,10 @@
 @IDE ：PyCharm
 @Motto:但行好事，莫问前程
 """
+import os
 import threading
 import re, queue, requests, time
+from config.log import logger
 
 queues = queue.Queue()
 info_queue = queue.Queue()
@@ -118,14 +120,12 @@ def re_handle(url, host, data, head, code):  # 网页返回内容处理
     # 只要响应码200、301、302的，其他的都不要
     if code == 302 or code == 301:
         if 'Location' in head:
-            info = (url, host, str(len(data)), str(code) + ':' + head['Location'])
-            print(info, code)
+            info = url+' ---- '+ host + ' ---- '+ str(len(data))+ ' ---- '+str(code) + ' : ' + head['Location']
             if '//cas.baidu.com' not in head['location'] and '//www.baidu.com' not in head['location'] and '//m.baidu.com' not in head['location']:
                 info_queue.put(info)
 
     elif code == 200:
-        info = (url, host, str(len(data)), title)
-        print(info, code)
+        info = url+ ' ---- '+ host+ ' ---- '+ str(len(data))+ ' ---- '+title
         if len(data) > 20:  # 去除掉一些无用数据
             info_queue.put(info)
 
@@ -157,7 +157,24 @@ def run_therad(num, ip_list, host_list,path):  # 创建新线程
     threads_complete = False
     handle_therads.join()
 
-def host(ip_list, host_list,path):
-    print("=====开 始 匹 配=====")
-    run_therad(20, ip_list, host_list,path)  # 线程数量
-    print("已处理完成，匹配成功的保存在 :" + path)
+def count_lines(filename):
+    """
+    返回文本文件的行数
+    :param filename: 文件名（包括路径）
+    :return: 行数
+    """
+    with open(filename, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+    return len(lines)
+
+def hostboom(ip_list, host_list,path):
+    path = str(path).split('.')[0]
+    logger.log("INFOR",f'The host boom start')
+    run_therad(30, ip_list, host_list,path)  # 线程数量
+    paths = path + '_host_boom_result.txt'
+    if os.path.isfile(paths):
+        count_data = count_lines(paths)
+        logger.log("INFOR", f'Host boom found {count_data} subdomain')
+        logger.log('ALERT', f'The host boom result result for all subdomain: {paths}')
+
+

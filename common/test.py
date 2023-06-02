@@ -9,12 +9,21 @@
 import json
 import ipaddress
 
+from Subdomain.OneForAll.common.hostscan import hostboom
+
+
 def nginx_ip(data):
     result = []
     json_obj = json.loads(data)
     for obj in json_obj:
         if obj['banner'] == 'nginx':
-            result.append(obj['ip'])
+            if ',' in str(obj['ip']):
+                for i in str(obj['ip']).split(','):
+                    if not is_private_ip(i):
+                        result.append(obj['ip'])
+            else:
+                if not is_private_ip(obj['ip']):
+                    result.append(obj['ip'])
     result = set(result)
     new_list = list(result)
     new_lists = []
@@ -38,9 +47,6 @@ def intranet_host(data):
     return result
 
 
-
-
-
 def is_private_ip(ip):
     """
     判断是否为内网IP地址
@@ -54,9 +60,12 @@ def is_private_ip(ip):
         return False
 
 
-
-data = open('../results/douyu.com.json','r')
+data = open('../results/douyu.com.json', 'r')
 data = data.read()
 nginx_ip(data)
 intranet_host(data)
+print(nginx_ip(data), intranet_host(data))
+hostboom(nginx_ip(data), intranet_host(data), '../results/douyu.com')
 
+test_list = []
+print(len(test_list))

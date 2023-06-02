@@ -49,7 +49,7 @@ def export_data(target, db=None, alive=False, limit=None, path=None, fmt='csv', 
             data, _, _ = do_export(fmt, path, rows, show, domain, target)
             datas.extend(data)
     database.close()
-    if len(domains) > 1:
+    if len(domains) > 0:
         utils.export_all(alive, fmt, path, datas)
     return datas
 

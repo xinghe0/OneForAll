@@ -25,6 +25,8 @@ from common.records import Record, RecordCollection
 from config import settings
 from config.log import logger
 
+from Subdomain.OneForAll.common.hostscan import hostboom
+
 user_agents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
     '(KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
@@ -335,11 +337,14 @@ def export_all_results(path, name, fmt, datas):
     if fmt == 'csv':
         content = '\ufeff' + content
     save_to_file(path, content)
-    results =  open(path,'r')
+    results = open(path, 'r')
     results = results.read()
     ip_list = nginx_ip(results)
     host_list = intranet_host(results)
-    print(ip_list,host_list)
+    if len(ip_list) > 0 and len(host_list) > 0:
+        hostboom(ip_list, host_list, path)
+    else:
+        pass
 
 
 def export_all_subdomains(alive, path, name, datas):
@@ -805,6 +810,7 @@ def fmt(results):
     results = str(results).replace('"', '').replace('\\', '').replace('n', '').replace('\'', '"').replace('""', '"')
     return results
 
+
 def nginx_ip(data):
     """
     获取nginx反代的ip
@@ -815,7 +821,13 @@ def nginx_ip(data):
     json_obj = json.loads(data)
     for obj in json_obj:
         if obj['banner'] == 'nginx':
-            result.append(obj['ip'])
+            if ',' in str(obj['ip']):
+                for i in str(obj['ip']).split(','):
+                    if not is_private_ip(i):
+                        result.append(obj['ip'])
+            else:
+                if not is_private_ip(obj['ip']):
+                    result.append(obj['ip'])
     result = set(result)
     new_list = list(result)
     new_lists = []
@@ -843,6 +855,7 @@ def intranet_host(data):
     result = list(set(result))
     return result
 
+
 def is_private_ip(ip):
     """
     判断是否为内网IP地址
@@ -854,4 +867,3 @@ def is_private_ip(ip):
         return addr.is_private
     except ValueError:
         return False
-
