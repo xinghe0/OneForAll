@@ -1,4 +1,0 @@
-mclub.guguyuyin.com:443
-mclub.guguyuyin.com:80
-guguyuyin.com:443
-guguyuyin.com:80

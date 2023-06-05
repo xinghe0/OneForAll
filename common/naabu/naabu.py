@@ -33,8 +33,9 @@ def info(path):
         for port in host.findall('ports/port'):
             portid = port.get('portid')
             service_name = port.find('service').get('name')
+            state_state = port.find('state').get('state')
             product_name = port.find('service').get('product')
-            if service_name == "http":
+            if service_name == "http" and state_state == "open":
                 result.append(f'{address}:{portid}')
             else:
                 fit.append(f'{address}:{portid}')
@@ -42,6 +43,10 @@ def info(path):
                 if http_live:
                     result.append(http(fit))
     logger.log("INFOR",f'Http server list: {result}')
+    for i in result:
+        with open(str(path).split('.')[0] + '.txt','a+') as f:
+            f.write(i + '\n')
+            f.close()
     return result
 
 def http(url_list):
@@ -58,5 +63,5 @@ def http(url_list):
 
 if __name__ == '__main__':
     path = 'url.txt'
-    naabu_cmd(path)
-    info(f'{path.split(".")[0]}_nmap-output.xml')
+    #naabu_cmd(path)
+    info('../../results/all_subdomain_result_20230605_114731_nmap-output.xml')
