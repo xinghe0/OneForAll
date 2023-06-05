@@ -6,7 +6,6 @@ Example
 """
 
 from oneforall import OneForAll
-from common.naabu.naabu import naabu_cmd
 
 def oneforall(file):
     """

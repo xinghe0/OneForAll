@@ -9,6 +9,7 @@ import pathlib
 relative_directory = pathlib.Path(__file__).parent.parent  # OneForAll代码相对路径
 data_storage_dir = relative_directory.joinpath('data')  # 数据存放目录
 
+enable_nmap = False
 # OneForAll入口参数设置
 enable_check_network = True  # 开启网络环境检查
 enable_check_version = True  # 开启最新版本检查

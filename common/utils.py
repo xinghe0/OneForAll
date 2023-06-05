@@ -26,6 +26,7 @@ from config import settings
 from config.log import logger
 from common.hostscan import hostboom
 from common.naabu.naabu import naabu_cmd
+from config.setting import enable_nmap
 
 user_agents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
@@ -361,7 +362,7 @@ def export_all_subdomains(alive, path, name, datas):
             subdomains.add(subdomain)
     data = '\n'.join(subdomains)
     save_to_file(path, data)
-    naabu_cmd(str(path))
+    naabu_cmd(str(path),enable_nmap)
 
 
 def export_all(alive, fmt, path, datas):
