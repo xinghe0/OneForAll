@@ -15,7 +15,7 @@ def oneforall(file):
     """
     test = OneForAll(targets=file)
     test.dns = True
-    test.brute = True
+    test.brute = False
     test.req = True
     test.takeover = False
     test.run()
