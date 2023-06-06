@@ -24,7 +24,7 @@ def naabu_cmd(path, nmap):
         check_http_services(f'{paths}_nmap-output.xml')
     else:
         paths = str(path).split('.')[0]
-        command = f'common/naabu/naabu -list {path} -top-ports 100 -o {paths}_result.txt'
+        command = f'common/naabu/naabu -list {path} -top-ports 1000 -o {paths}_result.txt'
         os.system(command)
         sub_list = []
         for i in open(f'{paths}_result.txt', 'r'):
