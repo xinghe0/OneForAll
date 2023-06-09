@@ -28,6 +28,7 @@ from common.hostscan import hostboom
 from common.naabu.naabu import naabu_cmd
 from config.setting import enable_nmap
 from common.dirsearch.dirsearch_api import dirsearch_cmd
+from common.FindJsInfo.findjs_api import findjs_cmd
 
 user_agents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
@@ -364,6 +365,7 @@ def export_all_subdomains(alive, path, name, datas):
     data = '\n'.join(subdomains)
     save_to_file(path, data)
     naabu_cmd(str(path),enable_nmap)
+    findjs_cmd(str(path))
     dirsearch_cmd(str(path))
 
 
